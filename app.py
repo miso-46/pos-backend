@@ -4,6 +4,8 @@ from db_control import crud, mymodels
 from pydantic import BaseModel
 import json
 from typing import List
+import os
+from dotenv import load_dotenv
 
 # MySQLのテーブル作成
 from db_control.create_tables import init_db
@@ -13,10 +15,13 @@ init_db()
 
 app = FastAPI()
 
+# フロントエンドのURLを環境変数から取得
+frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")  # デフォルトをローカル開発環境に設定
+
 # CORSの設定 フロントエンドからの接続を許可する部分
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # 許可するオリジン（フロントエンドのURL）
+    allow_origins=[frontend_url],  # 許可するオリジン
     allow_credentials=True, # Cookie や認証情報を許可
     allow_methods=["*"], # すべてのHTTPメソッド（GET, POST, PUT, DELETEなど）を許可
     allow_headers=["*"] # すべてのHTTPヘッダーを許可
