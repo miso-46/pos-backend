@@ -7,6 +7,9 @@ from typing import List
 import os
 from dotenv import load_dotenv
 
+# 環境変数の読み込み
+load_dotenv()
+
 # MySQLのテーブル作成
 from db_control.create_tables import init_db
 
