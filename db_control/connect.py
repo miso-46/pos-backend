@@ -28,9 +28,5 @@ engine = create_engine(
     echo=True, #SQLクエリのログを出力（デバッグ用）
     pool_pre_ping=True, #接続プールの管理（切断された接続を検出し、再接続を試みる）。本番環境では False にするのが一般的。
     pool_recycle=3600, # 接続プールの自動リサイクル（3600秒=1時間ごとに新しい接続を作成）
-    connect_args={  # AzureのSSL証明書DBと繋ぐ用
-        "ssl": {
-            "ca": DB_SSL_CA
-        }
-    }
+    connect_args={"ssl_ca": DB_SSL_CA} # AzureのSSL証明書DBと繋ぐ用
 )
